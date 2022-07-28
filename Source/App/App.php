@@ -494,6 +494,7 @@ class App extends Controller
             $invoice->wallet_id = $data["wallet"];
             $invoice->status = $data["status"];
             $invoice->purchase_mode = $data["purchase_mode"] ?? null;
+            $invoice->annotation = $data["annotation"] ?? null;
 
             if (!$invoice->save()) {
                 $json["message"] = $invoice->message()->before("Ooops! ")->after(" {$this->user->first_name}.")->render();

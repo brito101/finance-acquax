@@ -113,6 +113,7 @@ class AppInvoice extends Model
         $this->enrollment_of = 1;
         $this->status = ($data["repeat_when"] == "fixed" ? "paid" : $status);
         $this->purchase_mode = (isset($data["purchase_mode"]) ? $data["purchase_mode"] : null);
+        $this->annotation = (isset($data["annotation"]) ? $data["annotation"] : null);
 
         if (!$this->save()) {
             return null;

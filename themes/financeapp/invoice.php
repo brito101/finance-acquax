@@ -64,7 +64,13 @@
                     <?php endif; ?>
                 </select>
             </label>
+
         </div>
+
+        <label>
+            <span class="field">Anotação:</span>
+            <input class="radius" type="text" name="annotation" value="<?= $invoice->annotation; ?>" />
+        </label>
 
         <div class="al-center">
             <div class="app_formbox_actions">

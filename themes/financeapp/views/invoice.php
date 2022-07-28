@@ -84,6 +84,11 @@
             <input type="hidden" name="enrollments" value="1">
         <?php endif; ?>
 
+        <label>
+            <span class="field">Anotação:</span>
+            <input type="text" name="annotation" />
+        </label>
+
         <button class="btn radius transition icon-check-square-o" <?= ($type == 'refund' ? 'style="width:100%;"' : ''); ?>>
             Lançar <?= ($type == 'income' ? "Receita" : ($type == 'refund' ? "Reembolso" : "Despesa")); ?></button>
     </form>

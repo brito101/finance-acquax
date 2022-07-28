@@ -327,3 +327,8 @@ ALTER TABLE
   `purchase_order`
 ADD
   COLUMN `serie` varchar(255) DEFAULT NULL;
+
+ALTER TABLE
+  app_invoices
+ADD
+  COLUMN annotation varchar(255);
