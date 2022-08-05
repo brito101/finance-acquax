@@ -98,10 +98,27 @@
                 <input class="radius" type="text" name="freight" value="<?= $order->freight; ?>" />
             </label>
         </div>
+        <div class="label_group">
+            <label>
+                <span class="field icon-money">Forma de Pagamento:</span>
+                <input class="radius" type="text" name="payment" value="<?= $order->payment; ?>" />
+            </label>
+            <label>
+                <span class="field icon-check">Status:</span>
+                <select name="status">
+                    <option <?= ($order->status == 'Executada' ? "selected" : ""); ?> value="Executada">&ofcir;Executada</option>
+                    <option <?= ($order->status == 'Não executada' ? "selected" : ""); ?> value="Não executada">&ofcir;Não executada</option>
+                </select>
+            </label>
+        </div>
 
         <label>
-            <span class="field icon-money">Forma de Pagamento:</span>
-            <input class="radius" type="text" name="payment" value="<?= $order->payment; ?>" />
+            <span class="field">Anexo:
+                <?php if ($order->file) : ?>
+                    <a href="<?= urlStorage($order->file); ?>" class="icon-download" style="text-decoration: none;" title="Download"></a>
+                <?php endif; ?>
+            </span>
+            <input type="file" id="file" name="file">
         </label>
 
         <div class="al-center">

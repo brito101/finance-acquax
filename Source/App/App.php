@@ -496,6 +496,18 @@ class App extends Controller
             $invoice->purchase_mode = $data["purchase_mode"] ?? null;
             $invoice->annotation = $data["annotation"] ?? null;
 
+            if (!empty($_FILES["file"])) {
+                $files = $_FILES["file"];
+                $upload = new Upload();
+                $file = $upload->file($files, $data["description"]);
+                if (!$file) {
+                    $json["message"] = $upload->message()->render();
+                    echo json_encode($json);
+                    return;
+                }
+                $invoice->file = $file;
+            }
+
             if (!$invoice->save()) {
                 $json["message"] = $invoice->message()->before("Ooops! ")->after(" {$this->user->first_name}.")->render();
                 echo json_encode($json);
@@ -1006,6 +1018,19 @@ class App extends Controller
         $order->material_49 = (!empty($data['material_49']) ? $data['material_49'] : null);
         $order->material_50 = (!empty($data['material_50']) ? $data['material_50'] : null);
         $order->serie = $data['serie'];
+        $order->status = $data['status'];
+
+        if (!empty($_FILES["file"])) {
+            $files = $_FILES["file"];
+            $upload = new Upload();
+            $file = $upload->file($files, $data['serie']);
+            if (!$file) {
+                $json["message"] = $upload->message()->render();
+                echo json_encode($json);
+                return;
+            }
+            $order->file = $file;
+        }
 
         if (!$order->save()) {
             $json["message"] = $order->message()->render();
@@ -1145,6 +1170,19 @@ class App extends Controller
         $order->material_49 = (!empty($data['material_49']) ? $data['material_49'] : null);
         $order->material_50 = (!empty($data['material_50']) ? $data['material_50'] : null);
         $order->serie = $data['serie'];
+        $order->status = $data['status'];
+
+        if (!empty($_FILES["file"])) {
+            $files = $_FILES["file"];
+            $upload = new Upload();
+            $file = $upload->file($files, $data['serie']);
+            if (!$file) {
+                $json["message"] = $upload->message()->render();
+                echo json_encode($json);
+                return;
+            }
+            $order->file = $file;
+        }
 
         if (!$order->save()) {
             $json["message"] = $order->message()->render();

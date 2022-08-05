@@ -5,6 +5,7 @@ namespace Source\Models\FinanceApp;
 use Source\Core\Model;
 use Source\Core\Session;
 use Source\Models\User;
+use Source\Support\Upload;
 
 /**
  * Class AppInvoice
@@ -114,6 +115,18 @@ class AppInvoice extends Model
         $this->status = ($data["repeat_when"] == "fixed" ? "paid" : $status);
         $this->purchase_mode = (isset($data["purchase_mode"]) ? $data["purchase_mode"] : null);
         $this->annotation = (isset($data["annotation"]) ? $data["annotation"] : null);
+
+        if (!empty($_FILES["file"])) {
+            $files = $_FILES["file"];
+            $upload = new Upload();
+            $file = $upload->file($files, $data["description"]);
+            if (!$file) {
+                $json["message"] = $upload->message()->render();
+                echo json_encode($json);
+                return null;
+            }
+            $this->file = $file;
+        }
 
         if (!$this->save()) {
             return null;

@@ -479,6 +479,19 @@
             <input class="radius" type="text" name="payment" />
         </label>
 
+        <label>
+            <span class="field icon-check">Status:</span>
+            <select name="status">
+                <option value="Executada">&ofcir;Executada</option>
+                <option value="Não executada">&ofcir;Não executada</option>
+            </select>
+        </label>
+
+        <label>
+            <span class="field">Anexo:</span>
+            <input type="file" id="file" name="file">
+        </label>
+
         <button class="btn radius transition icon-check-square-o">Enviar</button>
     </form>
 </div>

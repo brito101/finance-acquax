@@ -72,6 +72,15 @@
             <input class="radius" type="text" name="annotation" value="<?= $invoice->annotation; ?>" />
         </label>
 
+        <label>
+            <span class="field">Anexo:
+                <?php if ($invoice->file) : ?>
+                    <a href="<?= urlStorage($invoice->file); ?>" class="icon-download" style="text-decoration: none;" title="Download"></a>
+                <?php endif; ?>
+            </span>
+            <input type="file" id="file" name="file">
+        </label>
+
         <div class="al-center">
             <div class="app_formbox_actions">
                 <span data-invoiceremove="<?= url("/app/remove/{$invoice->id}"); ?>" class="btn_remove transition icon-error">Excluir</span>

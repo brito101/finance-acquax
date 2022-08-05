@@ -45,13 +45,14 @@
         <?php endif; ?>
     <?php else : ?>
         <div class="app_launch_item header">
-            <p class="desc">Descrição</p>
-            <p class="date">Data</p>
-            <p class="category">Categoria</p>
+            <p style="flex-basis: 25%;">Descrição</p>
+            <p style="flex-basis: 15%;">Data</p>
+            <p class="category" style="flex-basis: 15%;">Categoria</p>
             <?php if ($type != 'refund') : ?>
-                <p class="enrollment">Parcela</p>
+                <p class="enrollment" style="flex-basis: 15%;">Parcela</p>
             <?php endif; ?>
-            <p class="price">Valor</p>
+            <p style="flex-basis: 15%;">Anexo</p>
+            <p class="price" style="flex-basis: 15%;">Valor</p>
         </div>
         <?php
         $unpaid = 0;
@@ -59,27 +60,34 @@
         foreach ($invoices as $invoice) :
         ?>
             <article class="app_launch_item">
-                <p class="desc app_invoice_link transition">
+                <p class="desc app_invoice_link transition" style="flex-basis: 25%;">
                     <a title="<?= $invoice->description; ?>" href="<?= url("/app/fatura/{$invoice->id}"); ?>"><?= str_limit_words($invoice->description, 3, "&nbsp;<span class='icon-info icon-notext'></span>") ?></a>
                 </p>
-                <p class="date">Dia <?= date_fmt($invoice->due_at, "d"); ?></p>
-                <p class="category"><?= $invoice->category; ?></p>
+                <p class="date" style="flex-basis: 15%;">Dia <?= date_fmt($invoice->due_at, "d"); ?></p>
+                <p class="category" style="flex-basis: 15%;"><?= $invoice->category; ?></p>
                 <?php if ($type != 'refund') : ?>
-                    <p class="enrollment">
+                    <p class="enrollment" style="flex-basis: 15%;">
                         <?php if ($invoice->repeat_when == "fixed") : ?>
                             <span class="app_invoice_link">
                                 <a href="<?= url("/app/fatura/{$invoice->invoice_of}"); ?>" class="icon-exchange" title="Controlar Conta Fixa">Fixa</a>
                             </span>
                         <?php elseif ($invoice->repeat_when == 'enrollment') : ?>
-                            <span class="app_invoice_link">
+                            <span class="app_invoice_link" style="flex-basis: 15%;">
                                 <a href="<?= url("/app/fatura/{$invoice->invoice_of}"); ?>" title="Controlar Parcelamento"><?= str_pad($invoice->enrollment_of, 2, 0, 0); ?> de <?= str_pad($invoice->enrollments, 2, 0, 0); ?></a>
                             </span>
                         <?php else : ?>
-                            <span class="icon-calendar-check-o">Única</span>
+                            <span class="icon-calendar-check-o" style="flex-basis: 15%;">Única</span>
                         <?php endif; ?>
                     </p>
                 <?php endif; ?>
-                <p class="price">
+                <p style="flex-basis: 15%;">
+                    <?php if ($invoice->file) : ?>
+                        <a href="<?= urlStorage($invoice->file); ?>" class="icon-download" style="text-decoration: none;" title="Download"></a>
+                    <?php else : ?>
+                        -
+                    <?php endif; ?>
+                </p>
+                <p class="price" style="flex-basis: 15%;">
                     <span>R$</span>
                     <span><?= str_price($invoice->value); ?></span>
                     <?php if ($invoice->status == 'unpaid') : $unpaid += $invoice->value; ?>
@@ -88,6 +96,7 @@
                         <span class="check <?= $type; ?> icon-thumbs-o-up transition" data-toggleclass="active icon-thumbs-o-down icon-thumbs-o-up" data-onpaid="<?= url("/app/onpaid"); ?>" data-date="<?= ($filter->date ?? date("m/Y")); ?>" data-invoice="<?= $invoice->id; ?>"></span>
                     <?php endif; ?>
                 </p>
+
             </article>
         <?php endforeach; ?>
 

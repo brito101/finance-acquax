@@ -332,3 +332,21 @@ ALTER TABLE
   app_invoices
 ADD
   COLUMN annotation varchar(255);
+
+--
+-- 2022-08-04
+--
+ALTER TABLE
+  `app_invoices`
+ADD
+  COLUMN `file` varchar(255) DEFAULT NULL;
+
+ALTER TABLE
+  `purchase_order`
+ADD
+  COLUMN `file` varchar(255) DEFAULT NULL;
+
+ALTER TABLE
+  `purchase_order`
+ADD
+  COLUMN `status` varchar(20) DEFAULT 'Executada';

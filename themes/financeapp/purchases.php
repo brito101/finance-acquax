@@ -13,27 +13,39 @@
     <div class="message info icon-info">Ainda não existem Ordens de Compra cadastradas</div>
   <?php else : ?>
     <div class="app_launch_item header">
-      <p class="" style="flex-basis: 10%;">Visualizar</p>
-      <p class="">Data</p>
-      <p class="">Obra</p>
-      <p class="">Valor</p>
-      <p class="">Solicitante</p>
-      <p class="">Prev Entrega</p>
+      <p style="flex-basis: 20%;">Visualizar</p>
+      <p style="flex-basis: 13%;">Data</p>
+      <p style="flex-basis: 15%;">Obra</p>
+      <p style="flex-basis: 15%;">Solicitante</p>
+      <p style="flex-basis: 13%;">Entrega</p>
+      <p style="flex-basis: 9%;">Anexo</p>
+      <p style="flex-basis: 15%;">Valor</p>
     </div>
 
     <?php foreach ($orders as $order) : ?>
       <article class="app_launch_item">
-        <p class="app_invoice_link transition" style="flex-basis: 10%;">
-          <a title="<?= 'Editar ordem de compra nº ' . $order->id; ?>" href="<?= url("/app/ordem-compra/{$order->id}"); ?>"><span class='icon-pencil-square-o icon-notext'></span> <?= $order->serie; ?></a>
+        <p class="app_invoice_link transition" style="flex-basis: 20%; text-align: left;">
+          <a title="<?= 'Editar ordem de compra nº ' . $order->id; ?>" href="<?= url("/app/ordem-compra/{$order->id}"); ?>">
+            <?php if ($order->status == 'Executada') : ?>
+              <span class='icon-check icon-notext' style="color: green;"></span>
+            <?php else : ?>
+              <span class='icon-times-circle icon-notext' style="color: red;"></span>
+            <?php endif; ?>
+            <?= $order->serie; ?></a>
         </p>
-        <p class="date"><?= date_fmt($order->date, "d/m/Y"); ?></p>
-        <p class=""><?= $order->job; ?></p>
-        <p class="price">
-          <span>R$</span>
-          <span><?= str_price($order->value); ?></span>
+        <p class="date" style="flex-basis: 13%;"><?= date_fmt($order->date, "d/m/Y"); ?></p>
+        <p style="flex-basis: 15%;"><?= $order->job; ?></p>
+        <p style="flex-basis: 15%;"><?= $order->requester; ?></p>
+        <p class="date" style="flex-basis: 13%;"><?= date_fmt($order->forecast, "d/m/Y"); ?></p>
+        <p style="flex-basis: 9%;">
+          <?php if ($order->file) : ?>
+            <a href="<?= urlStorage($order->file); ?>" class="icon-download" style="text-decoration: none;" title="Download"></a>
+          <?php else : ?>
+            -
+          <?php endif; ?>
         </p>
-        <p class=""><?= $order->requester; ?></p>
-        <p class="date"><?= date_fmt($order->forecast, "d/m/Y"); ?></p>
+        <p style="flex-basis: 15%;">R$ <?= str_price($order->value); ?>
+        </p>
       </article>
     <?php endforeach; ?>
   <?php endif; ?>

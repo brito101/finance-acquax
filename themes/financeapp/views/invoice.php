@@ -89,6 +89,11 @@
             <input type="text" name="annotation" />
         </label>
 
+        <label>
+            <span class="field">Anexo:</span>
+            <input type="file" id="file" name="file">
+        </label>
+
         <button class="btn radius transition icon-check-square-o" <?= ($type == 'refund' ? 'style="width:100%;"' : ''); ?>>
             Lançar <?= ($type == 'income' ? "Receita" : ($type == 'refund' ? "Reembolso" : "Despesa")); ?></button>
     </form>

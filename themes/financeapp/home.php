@@ -97,8 +97,8 @@
       <p class="app_flex_balance">
         <?php if (user()->level == 5) : ?>
           <span class="income">Receitas: R$ <?= str_price(($wallet->income ?? 0)); ?></span>
-          <span class="expense">Despesas: R$ <?= str_price(($wallet->expense ?? 0)); ?></span>
         <?php endif; ?>
+        <span class="expense">Despesas: R$ <?= str_price(($wallet->expense ?? 0)); ?></span>
         <span class="expense">Reembolsos: R$ <?= str_price(($wallet->refund ?? 0)); ?></span>
       </p>
     </article>
@@ -243,6 +243,11 @@
           data: [<?= $chart->refund; ?>],
           color: '#f77d0b',
           lineColor: '#f05a25'
+        }, {
+          name: 'Despesas',
+          data: [<?= $chart->expense; ?>],
+          color: '#F76C82',
+          lineColor: '#D94352'
         }]
       });
 

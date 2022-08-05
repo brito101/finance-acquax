@@ -44,8 +44,12 @@ function str_slug(string $string): string
     $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
     $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
 
-    $slug = str_replace(["-----", "----", "---", "--"], "-",
-        str_replace(" ", "-",
+    $slug = str_replace(
+        ["-----", "----", "---", "--"],
+        "-",
+        str_replace(
+            " ",
+            "-",
             trim(strtr(utf8_decode($string), utf8_decode($formats), $replace))
         )
     );
@@ -59,7 +63,9 @@ function str_slug(string $string): string
 function str_studly_case(string $string): string
 {
     $string = str_slug($string);
-    $studlyCase = str_replace(" ", "",
+    $studlyCase = str_replace(
+        " ",
+        "",
         mb_convert_case(str_replace("-", " ", $string), MB_CASE_TITLE)
     );
 
@@ -174,10 +180,20 @@ function url(string $path = null): string
     return CONF_URL_BASE;
 }
 
+function urlStorage(string $path = null): string
+{
+    if ($path) {
+        return CONF_URL_BASE . "/storage/" . ($path[0] == "/" ? mb_substr($path, 1) : $path);
+    }
+
+    return CONF_URL_BASE;
+}
+
 /**
  * @return string
  */
-function url_back(): string {
+function url_back(): string
+{
     if (!empty($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], CONF_SITE_DOMAIN)) {
         return $_SERVER['HTTP_REFERER'];
     }
@@ -273,7 +289,8 @@ function image(?string $image, int $width, int $height = null): ?string
  * @return string
  * @throws Exception
  */
-function date_fmt(?string $date = null, string $format = "d/m/Y H\hi"): string {
+function date_fmt(?string $date = null, string $format = "d/m/Y H\hi"): string
+{
     $date = (empty($date) ? "now" : $date);
     return (new DateTime($date))->format($format);
 }
