@@ -599,6 +599,51 @@ class App extends Controller
         ]);
     }
 
+    public function invoicePrint(array $data): void
+    {
+        $head = $this->seo->render(
+            "Aluguel - " . CONF_SITE_NAME,
+            CONF_SITE_DESC,
+            url(),
+            theme("/assets/images/share.png"),
+            false
+        );
+
+        if ($this->user->level == 5) {
+            $invoice = (new AppInvoice())->find(
+                "id = :invoice",
+                "invoice={$data["invoice"]}"
+            )->fetch();
+        } else {
+            $invoice = (new AppInvoice())->find(
+                "user_id = :user AND id = :invoice",
+                "user={$this->user->id}&invoice={$data["invoice"]}"
+            )->fetch();
+        }
+
+        if (!$invoice) {
+            $this->message->error("Ooops! Você tentou acessar uma fatura que não existe")->flash();
+            redirect("/app");
+        }
+        if ($this->user->level == 5) {
+            $wallets = (new AppWallet())
+                ->find()
+                ->order("wallet")
+                ->fetch(true);
+        } else {
+            $wallets = (new AppWallet())
+                ->find("user_id = :user", "user={$this->user->id}", "id, wallet")
+                ->order("wallet")
+                ->fetch(true);
+        }
+
+        echo $this->view->render("invoice-print", [
+            "head" => $head,
+            "invoice" => $invoice,
+            "wallets" => $wallets
+        ]);
+    }
+
     /**
      * @param array $data
      */
@@ -1085,6 +1130,37 @@ class App extends Controller
         );
 
         echo $this->view->render("purchase", [
+            "head" => $head,
+            "order" => $order
+        ]);
+    }
+
+    public function purchasePrint(array $data)
+    {
+
+        if ($this->user->level == 5) {
+            $obj = new AppPurchaseOrder();
+            $order = $obj->findById($data['id']);
+        } else {
+            $order = (new AppPurchaseOrder())
+                ->find("user_id = {$this->user->id} AND id = {$data['id']}")
+                ->fetch();
+        }
+
+        if (empty($order->id)) {
+            $this->message->error("Ooops! Você tentou acessar uma ordem de compra que não existe")->flash();
+            redirect("/app/ordem-compra");
+        }
+
+        $head = $this->seo->render(
+            CONF_SITE_NAME . " | Ordem de Compra nº {$order->id}",
+            CONF_SITE_DESC,
+            url("/app"),
+            url("/app/assets/images/image.jpg"),
+            false
+        );
+
+        echo $this->view->render("purchase-print", [
             "head" => $head,
             "order" => $order
         ]);

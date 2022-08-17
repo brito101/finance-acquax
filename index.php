@@ -53,6 +53,7 @@ $route->get("/reembolso/{status}/{category}/{date}", "App:refund");
 $route->get("/fixas", "App:fixed");
 $route->get("/empresas", "App:wallets");
 $route->get("/fatura/{invoice}", "App:invoice");
+$route->get("/fatura-print/{invoice}", "App:invoicePrint");
 $route->get("/perfil", "App:profile");
 $route->get("/assinatura", "App:signature");
 /** Users */
@@ -67,6 +68,7 @@ $route->post("/usuarios/usuario/{user_id}", "App:users");
 $route->get("/ordem-compra", "App:purchaserOrder");
 $route->post("/ordem-compra", "App:purchaserOrderSave");
 $route->get("/ordem-compra/{id}", "App:purchase");
+$route->get("/ordem-compra-print/{id}", "App:purchasePrint");
 $route->post("/atualizar-ordem-compra/{id}", "App:purchaseUpdate");
 $route->post("/remover-ordem-compra/{id}", "App:purchaseRemove");
 //END ADMIN

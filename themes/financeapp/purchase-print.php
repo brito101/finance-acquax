@@ -1,12 +1,7 @@
-<?php $v->layout("_theme"); ?>
-
-<div style="display: flex; align-content: end; margin-bottom: 10px;">
-    <a class="btn btn-blue icon-print" href="<?= url("/app/ordem-compra-print/{$order->id}"); ?>" target="_blank">Imprimir</a>
-</div>
-
+<?php $v->layout("_theme-print"); ?>
+<h2 style="text-align: center; margin: -30px 0 5px 0;">Ordem de Compra</h2>
 <div class="app_formbox app_widget">
-    <form class="app_form" action="<?= url("/app/atualizar-ordem-compra/{$order->id}"); ?>" method="post">
-
+    <form class="app_form">
         <div class="label_group">
             <label>
                 <span class="field icon-filter">Nº de Série:</span>
@@ -21,7 +16,7 @@
         <div class="label_group">
             <label>
                 <span class="field icon-plus">Quantidade:</span>
-                <input class="radius" type="number" name="amount" required value="<?= $order->amount; ?>" />
+                <input class="radius" type="text" name="amount" required value="<?= $order->amount; ?>" />
             </label>
             <label>
                 <span class="field icon-check">Obra:</span>
@@ -42,33 +37,20 @@
         </div>
 
         <div class="label_group">
-            <label>
+            <label style="flex-basis: 100%;">
                 <span class="field icon-check">Material:</span>
                 <input class="radius" type="text" name="material" required value="<?= $order->material; ?>" />
             </label>
-            <?php if ($order->material_1 == null) : ?>
-                <button class="btn radius transition icon-plus add-material" data-show="material_1">Mais material</button>
-            <?php endif; ?>
         </div>
 
-        <?php for ($i = 1; $i < 50; $i++) : ?>
+        <?php for ($i = 1; $i <= 50; $i++) : ?>
             <div class="label_group <?= $order->{'material_' . $i} == null ? 'material_input' : ''; ?> " id="material_<?= $i; ?>">
-                <label>
+                <label style="flex-basis: 100%;">
                     <span class="field icon-check">Material:</span>
                     <input class="radius" type="text" name="<?= 'material_' . $i; ?>" value="<?= $order->{'material_' . $i}; ?>" />
                 </label>
-                <?php if ($order->{'material_' . ($i + 1)} == null) : ?>
-                    <button class="btn radius transition icon-plus add-material" data-show="material_<?= ($i + 1); ?>">Mais material</button>
-                <?php endif; ?>
             </div>
         <?php endfor; ?>
-
-        <div class="label_group <?= $order->material_50 == null ? 'material_input' : ''; ?> " id="material_50">
-            <label>
-                <span class="field icon-check">Material:</span>
-                <input class="radius" type="text" name="material_50" value="<?= $order->material_50; ?>" />
-            </label>
-        </div>
 
         <div class="label_group">
             <label>
@@ -110,27 +92,11 @@
             <label>
                 <span class="field icon-check">Status:</span>
                 <select name="status">
-                    <option <?= ($order->status == 'Executada' ? "selected" : ""); ?> value="Executada">&ofcir;Executada</option>
-                    <option <?= ($order->status == 'Não executada' ? "selected" : ""); ?> value="Não executada">&ofcir;Não executada</option>
+                    <option <?= ($order->status == 'Executada' ? "selected" : ""); ?> value="Executada">Executada</option>
+                    <option <?= ($order->status == 'Não executada' ? "selected" : ""); ?> value="Não executada">Não executada</option>
                 </select>
             </label>
         </div>
-
-        <label>
-            <span class="field">Anexo:
-                <?php if ($order->file) : ?>
-                    <a href="<?= urlStorage($order->file); ?>" class="icon-download" style="text-decoration: none;" title="Download"></a>
-                <?php endif; ?>
-            </span>
-            <input type="file" id="file" name="file">
-        </label>
-
-        <div class="al-center">
-            <div class="app_formbox_actions">
-                <span data-invoiceremove="<?= url("/app/remover-ordem-compra/{$order->id}"); ?>" class="btn_remove transition icon-error">Excluir</span>
-                <button class="btn btn_inline radius transition icon-pencil-square-o">Atualizar</button>
-                <a class="btn_back transition radius icon-sign-in" href="<?= url("/app/ordem-compra"); ?>" title="Voltar">Voltar</a>
-            </div>
-        </div>
     </form>
+    <p style="text-align: right; font-size: 8px;">Impresso em <?= strftime('%A, %d de %B de %Y', strtotime('today')); ?></p>
 </div>

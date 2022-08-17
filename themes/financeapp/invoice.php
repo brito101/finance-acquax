@@ -1,5 +1,9 @@
 <?php $v->layout("_theme"); ?>
 
+<div style="display: flex; align-content: end; margin-bottom: 10px;">
+    <a class="btn btn-blue icon-print" href="<?= url("/app/fatura-print/{$invoice->id}"); ?>" target="_blank">Imprimir</a>
+</div>
+
 <div class="app_formbox app_widget">
     <form class="app_form" action="<?= url("/app/invoice/{$invoice->id}"); ?>" method="post">
         <input type="hidden" name="update" value="true" />
