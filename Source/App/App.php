@@ -491,7 +491,7 @@ class App extends Controller
             $invoice->description = $data["description"];
             $invoice->due_at = date("Y-m-d", strtotime($due_day));
             $invoice->value = str_replace([".", ","], ["", "."], $data["value"]);
-            $invoice->wallet_id = $data["wallet"];
+            // $invoice->wallet_id = $data["wallet"];
             $invoice->status = $data["status"];
             $invoice->purchase_mode = $data["purchase_mode"] ?? null;
             $invoice->annotation = $data["annotation"] ?? null;
@@ -1181,7 +1181,7 @@ class App extends Controller
             redirect("/app/ordem-compra");
         }
 
-        $order->user_id = $this->user->id;
+        // $order->user_id = $this->user->id;
         $order->date = date_fmt_back($data['date']);
         $order->amount = $data['amount'];
         $order->material = $data['material'];
