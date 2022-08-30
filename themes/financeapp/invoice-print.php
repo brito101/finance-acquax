@@ -2,6 +2,8 @@
 <h2 style="text-align: center; margin: -30px 0 5px 0;"><?= $invoice->type == 'income' ? 'Recebimento' : ($invoice->type == 'expense' ? 'Pagamento' : 'Reembolso'); ?></h2>
 <div class="app_formbox app_widget">
     <form class="app_form">
+        <div style="text-align: right;"><small>Criado por: <?= $invoice->getUser()->fullName(); ?> em <?= date("d/m/Y H:i", strtotime($invoice->created_at)); ?></small>
+        </div>
         <label>
             <span class="field icon-leanpub">Descrição:</span>
             <input class="radius" type="text" name="description" value="<?= $invoice->description; ?>" required />

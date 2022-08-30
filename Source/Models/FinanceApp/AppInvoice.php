@@ -455,4 +455,9 @@ class AppInvoice extends Model
 
         return $chartData;
     }
+
+    public function getUser()
+    {
+        return (new User())->findById($this->user_id);
+    }
 }

@@ -36,18 +36,10 @@
     <script src="<?= theme("/assets/scripts.js", CONF_VIEW_APP); ?>"></script>
 
     <script>
-        var is_chrome = function() {
-            return Boolean(window.chrome);
-        }
-        if (is_chrome) {
-            window.print();
-            setTimeout(function() {
-                window.close();
-            }, 10000);
-        } else {
-            window.print();
+        window.print();
+        setTimeout(function() {
             window.close();
-        }
+        }, 1000);
     </script>
 </body>
 

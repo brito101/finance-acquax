@@ -7,7 +7,8 @@
 <div class="app_formbox app_widget">
     <form class="app_form" action="<?= url("/app/invoice/{$invoice->id}"); ?>" method="post">
         <input type="hidden" name="update" value="true" />
-
+        <div style="text-align: right;"><small>Criado por: <?= $invoice->getUser()->fullName(); ?> em <?= date("d/m/Y H:i", strtotime($invoice->created_at)); ?></small>
+        </div>
         <label>
             <span class="field icon-leanpub">Descrição:</span>
             <input class="radius" type="text" name="description" value="<?= $invoice->description; ?>" required />

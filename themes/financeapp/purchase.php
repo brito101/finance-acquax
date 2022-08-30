@@ -6,7 +6,8 @@
 
 <div class="app_formbox app_widget">
     <form class="app_form" action="<?= url("/app/atualizar-ordem-compra/{$order->id}"); ?>" method="post">
-
+        <div style="text-align: right;"><small>Criado por: <?= $order->getUser()->fullName(); ?> em <?= date("d/m/Y H:i", strtotime($order->created_at)); ?></small>
+        </div>
         <div class="label_group">
             <label>
                 <span class="field icon-filter">Nº de Série:</span>
@@ -31,7 +32,7 @@
 
         <div class="label_group">
             <label>
-                <span class="field icon-plus">Fornecedor:</span>
+                <span class="field"><img src="<?= theme("/assets/images/icon-truck.png", 'financeapp'); ?>" style="margin-bottom: -15px; margin-top: -15px;">Fornecedor:</span>
                 <input class="radius" type="text" name="provider" value="<?= $order->provider; ?>" />
             </label>
 
