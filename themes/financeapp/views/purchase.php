@@ -24,7 +24,7 @@
                 <input class="radius" type="text" name="job" required />
             </label>
             <label>
-                <span class="field icon-check">Fornecedor:</span>
+                <span class="field"><img src="<?= theme("/assets/images/icon-truck.png", 'financeapp'); ?>" style="margin-bottom: -15px; margin-top: -15px;">Fornecedor:</span>
                 <input class="radius" type="text" name="provider" />
             </label>
         </div>
