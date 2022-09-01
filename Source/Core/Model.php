@@ -325,6 +325,13 @@ abstract class Model
         return Connect::getInstance()->query("SELECT MAX(id) as maxId FROM {$this->entity}")->fetch()->maxId + 1;
     }
 
+    public function lastIdYear(): int
+    {
+        $dateStart = date('Y') . '-01-01';
+        $dateEnd = date('Y') . '-12-31';
+        return Connect::getInstance()->query("SELECT MAX(id) as maxId FROM {$this->entity} WHERE created_at >= '{$dateStart}' AND created_at <= '{$dateEnd}'")->fetch()->maxId + 1;
+    }
+
     /**
      * @param string $terms
      * @param null|string $params

@@ -973,11 +973,11 @@ class App extends Controller
     {
         if ($this->user->level == 5) {
             $orders = (new AppPurchaseOrder())->find()
-                ->order("date DESC")
+                ->order("created_at DESC")
                 ->fetch(true);
         } else {
             $orders = (new AppPurchaseOrder())->find("user_id = {$this->user->id}")
-                ->order("date DESC")
+                ->order("created_at DESC")
                 ->fetch(true);
         }
 
@@ -1062,7 +1062,7 @@ class App extends Controller
         $order->material_48 = (!empty($data['material_48']) ? $data['material_48'] : null);
         $order->material_49 = (!empty($data['material_49']) ? $data['material_49'] : null);
         $order->material_50 = (!empty($data['material_50']) ? $data['material_50'] : null);
-        $order->serie = $data['serie'];
+        $order->serie =  (new AppPurchaseOrder())->lastIdYear() . '/' . date('Y');
         $order->status = $data['status'];
 
         if (!empty($_FILES["file"])) {
@@ -1245,7 +1245,7 @@ class App extends Controller
         $order->material_48 = (!empty($data['material_48']) ? $data['material_48'] : null);
         $order->material_49 = (!empty($data['material_49']) ? $data['material_49'] : null);
         $order->material_50 = (!empty($data['material_50']) ? $data['material_50'] : null);
-        $order->serie = $data['serie'];
+        // $order->serie = $data['serie'];
         $order->status = $data['status'];
 
         if (!empty($_FILES["file"])) {

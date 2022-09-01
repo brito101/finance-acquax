@@ -11,7 +11,7 @@
         <div class="label_group">
             <label>
                 <span class="field icon-filter">Nº de Série:</span>
-                <input type="text" value="<?= $order->serie; ?>" name="serie" required />
+                <input type="text" value="<?= $order->serie; ?>" name="serie" disabled />
             </label>
             <label>
                 <span class="field icon-filter">Data:</span>

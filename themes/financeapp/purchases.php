@@ -13,7 +13,7 @@
     <div class="message info icon-info">Ainda não existem Ordens de Compra cadastradas</div>
   <?php else : ?>
     <div class="app_launch_item header">
-      <p style="flex-basis: 20%;">Visualizar</p>
+      <p style="flex-basis: 20%;">Nº Série</p>
       <p style="flex-basis: 13%;">Data</p>
       <p style="flex-basis: 15%;">Obra</p>
       <p style="flex-basis: 15%;">Solicitante</p>

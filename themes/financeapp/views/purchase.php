@@ -2,11 +2,6 @@
     <p class="title icon-calendar-check-o">Ordem de Compra:</p>
     <form class="app_form" action="<?= url("/app/ordem-compra"); ?>" method="post">
 
-        <label>
-            <span class="field icon-check">Nº de série:</span>
-            <input class="radius" type="text" name="serie" required />
-        </label>
-
         <div class="label_group">
             <label>
                 <span class="field icon-filter">Data:</span>
